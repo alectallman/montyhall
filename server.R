@@ -15,13 +15,13 @@ shinyServer(function(input, output) {
     N <- input$rounds
     
     resultoutput <- character()
-      doors<-1:gamedoors #initialize the doors behind one of which is a good prize
-      playcount <-0
-      switchcount <-0 
-      staycount <-0
-      wincount <-0 #to keep track of number of wins
-      staywin <- 0
-      switchwin <- 0
+      doors<-1:gamedoors #create the doors 
+      playcount <-0 
+      switchcount <-0 #track switchgames
+      staycount <-0 #track switchgames
+      wincount <-0 #track total wins
+      staywin <- 0 #track stay wins
+      switchwin <- 0 #track switch wins
    
     
     
@@ -103,7 +103,7 @@ shinyServer(function(input, output) {
       summ5 <- paste0('You won ',wincount,' out of ', playcount,' times.</h4>')
     summ <- paste(summ1,summ2,summ3,summ4,summ5, sep='<br />')
 
-      HTML(paste('<h4>',summ,paste(resultoutput, collapse=" ")))
+      HTML(paste('<h3>Results</h3><h4>',summ,paste(resultoutput, collapse=" ")))
     
     ###########END
     })

@@ -3,7 +3,7 @@ library(shiny)
 #shinyUI(pageWithSidebar(
 shinyUI(fluidPage(
     tags$head(includeScript("googleanalytics.js")),  
-  
+    tags$head(includeCSS("monty.css")),
   # Application title
   headerPanel("Monty Hall Simulator!"),
     h3("Get your hands dirty with the 'Monty Hall Problem.'"),

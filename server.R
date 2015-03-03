@@ -75,18 +75,18 @@ shinyServer(function(input, output, session) {
           wincount<-wincount+1
           if(strat=='switch') switchwin <-switchwin +1
           if(strat=='stay') staywin <- staywin + 1
-          outcome<-'You <b>win!</b> Congratulations!'
+          outcome<-'<span style="color:#54278f">You <b>win!</b></span> Congratulations!'
         } else {
-          outcome<-'You <b>lose.</b> Better luck next time.' }
+          outcome<-'<span style="color:#54278f">You <b>lose.</b></span> Better luck next time.' }
         
         if(input$print_games) {
        
           str0 <- paste('<b>Game Number ',i)
           str1 <- paste('</b>Doors you see: ',paste(doors, collapse=" "))
-          str2 <- paste('You guess: Door',guess1)
+          str2 <- paste('You guess: <span style="color:#2171b5">Door',guess1,"</span>")
           str3 <- paste('Host opens ',doorsremoved,'door(s):',paste(doorsopened,collapse=" "))
           str4 <- paste('Leaving you to choose from door(s): ',paste(remainingdoors,collapse=" "))
-          str5 <- paste0('You decide to <i>',strat,'</i>.')
+          str5 <- paste0('You decide to <i><span style="color:#2171b5">',strat,'</span></i>.')
           str6 <- paste('Final Guess: Door',guess2)
           str7 <- paste('And the winner is door ',prize,'!',sep='')
           str8 <- paste(outcome,'<p><br />')
@@ -97,14 +97,14 @@ shinyServer(function(input, output, session) {
           #print(paste(str0,str1,str2,str3,str4,str5,str6,str7,str8, sep = '<br/>'))
           
         }      }
-      summ1 <- ifelse(playtype!='stay',paste0('<b>Switch games: <i>',round(switchwin/switchcount*100,1),'%</i> win rate</b>. ',switchcount,' switch games, with ', switchwin,' wins.'),paste0('<b>Switch games: <i>None</i></b>'))
-      summ2 <- ifelse(playtype!='switch',paste0('<b>Stay games: <i>',round(staywin/staycount*100,1),'%</i> win rate.</b> ',staycount,' stays, with ', staywin,' wins.'),paste0('<b>Stay games: <i>None</i></b>'))
-      summ3 <- paste('<br /><b>Gameplay:</b> First you picked your favorite out of',length(doors),'doors. Then the host opened', doorsremoved,'of them, leaving',length(remainingdoors),'doors for you to decide whether to switch or stay.<br />')
-      summ4 <- paste0('<b>Your Score:</b> Using a <b><i>',playtype,'</b></i> guessing strategy, you won <b>',round(wincount/N*100,1),'% of the time.</b>')
+      summ1 <- ifelse(playtype!='stay',paste0('<b>Switch games: <i><span style="color:#54278f"><b>',round(switchwin/switchcount*100,1),'%</b></span></i> win rate</b>. ',switchcount,' switch games, with ', switchwin,' wins.'),paste0('<b>Switch games: <i>None</i></b>'))
+      summ2 <- ifelse(playtype!='switch',paste0('<b>Stay games: <i><span style="color:#54278f"><b>',round(staywin/staycount*100,1),'%</b></span></i> win rate.</b> ',staycount,' stays, with ', staywin,' wins.'),paste0('<b>Stay games: <i>None</i></b>'))
+      summ3 <- paste('<br /><b>Gameplay:</b> <br>First you picked your favorite out of<span style="color:#2171b5"><b>',length(doors),'</b></span>doors. <br>Then the host opened<b>', doorsremoved,'</b>of them. <br>This left<b><span style="color:#2171b5">',length(remainingdoors),'</span></b>doors for you to decide whether to switch or stay.<br />')
+      summ4 <- paste0('<b>Your Score:</b> <br>Using a <b><i>',playtype,'</b></i> guessing strategy, you won <b>',round(wincount/N*100,1),'% of the time.</b>')
       summ5 <- paste0('You won ',wincount,' out of ', playcount,' times.</h4>')
     summ <- paste(summ1,summ2,summ3,summ4,summ5, sep='<br />')
 
-      HTML(paste('<h3>Your Results</h3><h4>',summ,if(input$print_games)'<h3>Detailed Gameplay Results</h3>',paste(resultoutput, collapse=" ")))
+      HTML(paste('<h3>Your Results</h3><h4>',summ,if(input$print_games)'<br /><div class="form-group shiny-details-panel"><h3>Detailed Gameplay Results</h3>',paste(resultoutput, collapse=" "),'</div>'))
     
     ###########END
     })

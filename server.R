@@ -1,16 +1,19 @@
 library(shiny)
 
 # Define server logic required to generate and plot a random distribution
-shinyServer(function(input, output) {
+shinyServer(function(input, output, session) {
   
   output$summary <- renderUI({
        
     ###########STARTING VARS
     gamedoors<-input$gamedoors
-    doorsremoved<- input$doorsremoved
-   
+    #doors removed = all doors minus those remaining.
+    #At least 1, but leaving at least 2 (1<=doorsremoved<=gamedoors-2) 
+    doorsremoved<- input$gamedoors-input$doorsleft
+    doorsremoved <- max(min(doorsremoved,gamedoors-2),1)
+    updateSliderInput(session, "doorsleft", value = (gamedoors-doorsremoved))
     
-    ###########SWITCH VARS
+    
     playtype <- input$playtype
     N <- input$rounds
     
@@ -26,8 +29,6 @@ shinyServer(function(input, output) {
     
     
     
-      #  always leave at least 2 doors
-      doorsremoved <- min(doorsremoved,length(doors)-2)
       for(i in 1:N)
       {
         
@@ -80,7 +81,7 @@ shinyServer(function(input, output) {
         
         if(input$print_games) {
        
-          str0 <- paste('<br /><b>Game Number ',i)
+          str0 <- paste('<b>Game Number ',i)
           str1 <- paste('</b>Doors you see: ',paste(doors, collapse=" "))
           str2 <- paste('You guess: Door',guess1)
           str3 <- paste('Host opens ',doorsremoved,'door(s):',paste(doorsopened,collapse=" "))
@@ -88,7 +89,7 @@ shinyServer(function(input, output) {
           str5 <- paste0('You decide to <i>',strat,'</i>.')
           str6 <- paste('Final Guess: Door',guess2)
           str7 <- paste('And the winner is door ',prize,'!',sep='')
-          str8 <- paste(outcome,'<p>')
+          str8 <- paste(outcome,'<p><br />')
           
           #paste(str1,str2,str3,str4,str5, sep = '<br/>')
           result <- paste(str0,str1,str2,str3,str4,str5,str6,str7,str8, sep = '<br/>')
@@ -103,7 +104,7 @@ shinyServer(function(input, output) {
       summ5 <- paste0('You won ',wincount,' out of ', playcount,' times.</h4>')
     summ <- paste(summ1,summ2,summ3,summ4,summ5, sep='<br />')
 
-      HTML(paste('<h3>Results</h3><h4>',summ,paste(resultoutput, collapse=" ")))
+      HTML(paste('<h3>Your Results</h3><h4>',summ,if(input$print_games)'<h3>Detailed Gameplay Results</h3>',paste(resultoutput, collapse=" ")))
     
     ###########END
     })

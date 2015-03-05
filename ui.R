@@ -42,9 +42,9 @@ shinyUI(fluidPage(
     checkboxInput('print_games', 'Print Detailed Results', value = TRUE),
     br(),
     br(),
-    p(a(href="https://twitter.com/intent/tweet?text=Got%20a%20problem%20with%20the%20Monty%20Hall%20Problem%3f%20No%20longer%3a%20&url=http%3a%2f%2figotmontyhallproblems.us",target="_blank",img(src = "https://g.twimg.com/twitter-bird-16x16.png", width = "16px", height = "16px"),"Tweet this!")),
+    p(a(href="https://twitter.com/intent/tweet?text=Got%20a%20problem%20with%20the%20Monty%20Hall%20Problem%3f%20No%20longer%3a%20&url=http%3a%2f%2figotmontyhallproblems.us",target="_blank",img(src = "https://g.twimg.com/twitter-bird-16x16.png", width = "16px", height = "16px"),id="twitter","Tweet this!")),
     br(),
-    p("created by Alec Tallman in R Shiny ",br(),a(href="http://linkedin.com/in/alectallman",target="_blank",img(src = "https://static.licdn.com/scds/common/u/img/webpromo/btn_in_20x15.png", width = "20px", height = "15px"),"View Alec Tallman's Profile"))
+    p("created by Alec Tallman in R Shiny ",br(),a(href="http://linkedin.com/in/alectallman",target="_blank",img(src = "https://static.licdn.com/scds/common/u/img/webpromo/btn_in_20x15.png", width = "20px", height = "15px"),id="linkedin","View Alec Tallman's Profile"))
     
     ),
   
